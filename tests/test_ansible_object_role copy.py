@@ -1,5 +1,6 @@
 from src.classes.ansible_objects.role import Role
 import pytest
+import os
 
 # with mock.patch('yourmodule.isdir') as mocked_isdir, \
 #         mock.patch('yourmodule.listdir') as mocked_listdir:
@@ -13,7 +14,8 @@ import pytest
 
 @pytest.fixture(scope="session")
 def role():
-    role = Role(root_dir="./resources/test_role")
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+    role = Role(root_dir=f"{script_dir}/resources/test_role")
     return role
 
 def test_role_init_failure():

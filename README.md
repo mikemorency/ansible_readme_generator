@@ -1,4 +1,4 @@
-# Ansible Readme Generator
+# ansidocs
 
 This project installs a command line tool to help generate and update README.md files for arbitrary Ansible projects. It supports roles and collections by default but can also configured to create READMEs for custom project structures.
 

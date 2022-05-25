@@ -1,5 +1,6 @@
 from src.classes.ansible_objects.collection import Collection
 import pytest
+import os
 
 # with mock.patch('yourmodule.isdir') as mocked_isdir, \
 #         mock.patch('yourmodule.listdir') as mocked_listdir:
@@ -13,7 +14,8 @@ import pytest
 
 @pytest.fixture(scope="session")
 def collection():
-    collection = Collection(root_dir="./resources/test_collection")
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+    collection = Collection(root_dir=f"{script_dir}/resources/test_collection")
     return collection
 
 def test_role_init_failure():

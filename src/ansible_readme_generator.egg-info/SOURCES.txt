@@ -1,8 +1,0 @@
-LICENSE
-setup.py
-src/ansible_readme_generator.egg-info/PKG-INFO
-src/ansible_readme_generator.egg-info/SOURCES.txt
-src/ansible_readme_generator.egg-info/dependency_links.txt
-src/ansible_readme_generator.egg-info/entry_points.txt
-src/ansible_readme_generator.egg-info/requires.txt
-src/ansible_readme_generator.egg-info/top_level.txt

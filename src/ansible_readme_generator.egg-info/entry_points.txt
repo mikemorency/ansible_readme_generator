@@ -1,2 +1,0 @@
-[console_scripts]
-ansidocs = src.command_line:main

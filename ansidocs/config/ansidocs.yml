@@ -1,0 +1,47 @@
+---
+# The structure below documents the attribute required and optional for a project layout, should you choose to customize or create one.
+#
+# project_layouts:
+#   my_layout:      # required, this is the name of your project layout. The name can be used to link custom readme templates to this layout
+#     meta:         # required, this is a dictionary describing the projects meta attributes
+#       file: >-
+#          str, required, the meta file is the project relative path to a file containing meta attributes. This attribute is also used to link
+#          your project to the layout, so the value should be unique amongst the layouts
+#       name_attr: >-
+#          str, optional, If your meta file has a non-standard (name) attribute to describe the project's name, you can specify that here
+#       nested_key: >-
+#          str, optional, If your meta file has its attributes nested under a certain key, you can specify that here. An example would be
+#          the ansible collection galaxy.yml, where attributes are nested under galaxy_info
+#     docs: >-
+#       str, optional, If your project has a documentation directory, you can specify the path to that here. Documentation directories can provide
+#       custom documentation for this program to use, or just have extra docs. See this projects README for file names this project will try to use
+#     part_namespace: >-
+#       str, optional, If your project has nested projects inside of it (i.e. collections contain roles) you can specify what namespace from the parent
+#       the nested projects will use. The program supports any attributes inside the parent meta file. Omit this to use the namespace in the child meta
+#     part_paths:   # optional, a dictionary of parts to their respective relative paths
+#       roles: optional, str, relative path to a directory that contains roles. Omit if this project doesnt contain this part
+#       playbooks: optional, str, relative path to a directory that contains playbooks. Omit if this project doesnt contain this part
+#       plugins: optional, str, relative path to a directory that contains plugins. Omit if this project doesnt contain this part
+#       defaults: optional, str, relative path to a directory that contains defaults. Omit if this project doesnt contain this part
+
+project_layouts:
+  role:
+    readme: README.md
+    meta:
+      file: ./meta/main.yml
+      name_attr: role_name
+      nested_key: galaxy_info
+    docs: ./docs
+    part_paths:
+      defaults: ./defaults
+
+  collection:
+    meta:
+      file: ./galaxy.yml
+      name_attr: name
+    docs: ./docs
+    part_namespace: qualified_name
+    part_paths:
+      roles: ./roles
+      playbooks: ./playbooks
+      plugins: ./plugins

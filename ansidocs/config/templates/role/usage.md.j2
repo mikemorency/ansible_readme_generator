@@ -1,0 +1,16 @@
+{% if project.usage -%}
+{{ project.usage }}
+{% else %}
+You can include this role like any other. Variable parameters may change how this role behaves
+```
+---
+- name: example
+  hosts: localhost
+  roles:
+    - role: {{ project.meta.name }}
+```
+{% endif -%}
+
+{% for part in project.parts %}
+{{ '\n'.join(part.to_markdown()) | safe }}
+{% endfor %}

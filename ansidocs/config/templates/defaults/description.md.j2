@@ -1,0 +1,27 @@
+{% if project.meta.qualified_name -%}
+# {{ project.meta.qualified_name }}
+{%- else -%}
+# {{ project.meta.namespace | default('') | capitalize }} {{ project.meta.name | default('') | capitalize }}
+{%- endif %} {{ project.meta.version | default('') }}
+
+{{ project.description | safe }}
+
+{%- if project.meta.min_ansible_version is defined %}
+
+Required Minimum Ansible Version is {{ project.meta.min_ansible_version }}
+{% endif -%}
+
+{%- if project.meta.platforms is defined %}
+
+This role supports the following Operating Systems:
+{% for platform in project.meta.platforms %}
+{% if platform is mapping -%}
+  <b>{{ platform.name | capitalize }}</b>
+  {% for version in platform.versions -%}
+    - {{ version }}
+  {% endfor -%}
+{% else %}
+<b>{{ platform }}</b>
+{% endif -%}
+{% endfor -%}
+{% endif -%}

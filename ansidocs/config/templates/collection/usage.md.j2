@@ -1,0 +1,25 @@
+{% if project.usage -%}{{ project.usage }}{% endif -%}
+
+### Using Content
+
+Parts of this collection can be referenced using the fully qualified name.
+
+Roles for example can be loaded using:
+```
+...
+roles:
+  - role: {{ project.meta.qualified_name }}.<ROLE NAME>
+...
+```
+
+Plugins can be loaded using:
+```
+...
+- name: Loading a module
+  {{ project.meta.qualified_name }}.<MODULE NAME>
+    fake_attribute: foo
+```
+
+{% for part in project.parts %}
+{{ '\n'.join(part.to_markdown()) | safe }}
+{% endfor %}

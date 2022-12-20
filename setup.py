@@ -5,9 +5,11 @@ setup(
     name="ansidocs-mikemorency",
     version="0.0.1",
     packages=find_packages(),
+    package_data={'ansidocs': ['config/**']},
+    include_package_data=True,
     entry_points = {
         "console_scripts": [
-            "ansidocs = src.command_line:main"
+            "ansidocs = ansidocs.src.command_line:main"
         ]
     },
 

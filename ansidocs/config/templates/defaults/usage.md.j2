@@ -1,0 +1,5 @@
+{% if project.usage -%}{{ project.usage }}{% endif -%}
+
+{%- for part in project.parts %}
+{{ '\n'.join(part.to_markdown()) | safe }}
+{% endfor %}

@@ -1,0 +1,3 @@
+---
+param1: str, This is a string parameter
+param2: bool, This is a bool parameter

@@ -8,8 +8,10 @@ jinja2 = "*"
 pyyaml = "*"
 
 [dev-packages]
+ansidocs = {editable = true, path = "."}
 flake8 = "*"
-ansidocs-mikemorency = {editable = true, path = "."}
+build = "*"
+twine = "*"
 
 [requires]
 python_version = "3.9"

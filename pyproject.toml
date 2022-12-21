@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ansidocs"
+version = "1.0.5"
+description = "Generate and collate documentation for Ansible projects"
+readme = "README.md"
+authors = [{ name = "Mike Morency", email = "mikemorency93@gmail.com" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+keywords = ["ansible", "documentation", "generator", "generate"]
+dependencies = [
+    "jinja2",
+    "pyyaml"
+]
+requires-python = ">=3.8"
+
+[tool.setuptools.package-data]
+ansidocs = ["config/**"]
+
+[project.scripts]
+ansidocs = "ansidocs.command_line:main"
+
+[project.urls]
+homepage = "https://github.com/mikemorency/ansidocs"
+repository = "https://github.com/mikemorency/ansidocs"
+documentation  = "https://github.com/mikemorency/ansidocs"
+
+[project.optional-dependencies]
+dev = ["ansible", "pytest", "flake8", "build", "twine"]

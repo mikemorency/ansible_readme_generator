@@ -1,5 +1,5 @@
 {% if project.usage -%}
-{{ project.usage }}
+{{ project.usage | safe }}
 {% else %}
 You can include this role like any other. Variable parameters may change how this role behaves
 ```

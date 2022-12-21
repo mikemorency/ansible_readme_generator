@@ -5,8 +5,7 @@ from dataclasses import dataclass
 from dataclasses import field
 from os import path
 
-from ansidocs.src.classes.layout import Layout
-
+from ansidocs.classes.layout import Layout
 
 
 @dataclass

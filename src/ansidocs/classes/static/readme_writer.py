@@ -1,12 +1,12 @@
-from distutils.command.config import config
 import logging
 from os import path
-from ansidocs.src.classes.project import Project
-from datetime import datetime
 import jinja2
+
+from ansidocs.classes.project import Project
 
 
 logger = logging.getLogger(__name__)
+
 
 class ReadmeWriter():
     __jinja_env = {}
@@ -33,7 +33,6 @@ class ReadmeWriter():
             logger.debug(f"No custom readme template for layout '{project.layout.name}'")
             readme_template = ReadmeWriter.__jinja_env.get_template('defaults/README.md.j2')
 
-
         description_block = ReadmeWriter.__render_description(project=project)
         usage_block = ReadmeWriter.__render_usage(project=project)
         footer_block = ReadmeWriter.__render_footer(project=project)
@@ -44,13 +43,12 @@ class ReadmeWriter():
             footer_block=footer_block
         )
         logger.info("Writing data to readme")
-        #with open("/mnt/c/Users/mike.morency/personal/ansidocs/output.md", 'w') as file:
         with open(path.join(project.root_dir, project.readme_file), 'w') as file:
             file.write(readme_text)
 
     @staticmethod
     def __render_description(project: Project):
-        logger.info(f"Compiling description section of readme for project")
+        logger.info("Compiling description section of readme for project")
         try:
             template = ReadmeWriter.__jinja_env.get_template(f'{project.layout.name}/description.md.j2')
         except jinja2.exceptions.TemplateNotFound:
@@ -60,7 +58,7 @@ class ReadmeWriter():
 
     @staticmethod
     def __render_usage(project: Project):
-        logger.info(f"Compiling usage section of readme for project")
+        logger.info("Compiling usage section of readme for project")
         try:
             template = ReadmeWriter.__jinja_env.get_template(f'{project.layout.name}/usage.md.j2')
         except jinja2.exceptions.TemplateNotFound:
@@ -70,7 +68,7 @@ class ReadmeWriter():
 
     @staticmethod
     def __render_footer(project: Project):
-        logger.info(f"Compiling usage section of readme for project")
+        logger.info("Compiling footer section of readme for project")
         try:
             template = ReadmeWriter.__jinja_env.get_template(f'{project.layout.name}/footer.md.j2')
         except jinja2.exceptions.TemplateNotFound:

@@ -1,12 +1,12 @@
 import logging
 from os import path
 
-from ansidocs.src.classes.layout import Layout
-from ansidocs.src.classes.project_parts.meta import Meta
-from ansidocs.src.classes.project_parts.playbooks import Playbooks
-from ansidocs.src.classes.project_parts.plugins import Plugins
-from ansidocs.src.classes.project_parts.defaults import Defaults
-from ansidocs.src.classes.project_parts.roles import Roles
+from ansidocs.classes.layout import Layout
+from ansidocs.classes.project_parts.meta import Meta
+from ansidocs.classes.project_parts.playbooks import Playbooks   # noqa: F401
+from ansidocs.classes.project_parts.plugins import Plugins   # noqa: F401
+from ansidocs.classes.project_parts.defaults import Defaults   # noqa: F401
+from ansidocs.classes.project_parts.roles import Roles   # noqa: F401
 
 
 logger = logging.getLogger(__name__)
@@ -43,6 +43,8 @@ class Project():
             except KeyError:
                 raise Exception(f"This program does not support project part '{k}'"
                                 f" from the layout configuration '{self.layout.name}'")
+            except FileNotFoundError as e:
+                logger.warning(f"Could not find project part {k} at {e.filename}")
 
         return set(results)
 
@@ -51,6 +53,7 @@ class Project():
         if self._description:
             return self._description
 
+        self._description = self.meta.description
         if self.docs_dir:
             logger.debug("Looking for a custom description.md file for this project")
             try:
@@ -61,7 +64,6 @@ class Project():
         else:
             logger.debug("No docs directory. Using meta description as fallback")
 
-        self._description = self.meta.description
         return self._description
 
     @description.setter
@@ -73,6 +75,7 @@ class Project():
         if self._usage:
             return self._usage
 
+        self._usage = None
         if self.docs_dir:
             logger.debug("Looking for a custom usage.md file for this project")
             try:
@@ -83,5 +86,4 @@ class Project():
         else:
             logger.debug("No docs directory.No custom usage markdown will be added")
 
-        self._usage = None
         return self._usage

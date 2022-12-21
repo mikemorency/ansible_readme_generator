@@ -2,11 +2,11 @@ from os import path
 import logging
 from dataclasses import dataclass
 import glob
+import errno
 
-from ansidocs.src.classes.abstract_project_part import AbstractProjectPart
-from ansidocs.src.classes.abstract_project_part import AbstractDirContent
-
-from ansidocs.src.classes.layout import Layout
+from ansidocs.classes.abstract_project_part import AbstractProjectPart
+from ansidocs.classes.abstract_project_part import AbstractDirContent
+from ansidocs.classes.layout import Layout
 
 
 logger = logging.getLogger(__name__)
@@ -23,7 +23,11 @@ class Roles(AbstractProjectPart):
         super().__init__(project_root=project_root, layout=layout)
         self.root_dir = path.abspath(path.join(self.project_root, layout.part_paths['roles']))
         if not path.exists(self.root_dir):
-            raise FileNotFoundError(f"Unable to find Defaults project part directory {self.root_dir}")
+            raise FileNotFoundError(
+                errno.ENOENT,
+                f"Unable to find defaults project part directory {self.root_dir}",
+                self.root_dir)
+
 
     def get_content(self):
         content = []
@@ -35,7 +39,7 @@ class Roles(AbstractProjectPart):
 
     def to_markdown(self):
         relative_path = self.layout.part_paths['roles']
-        markdown =  [ "### Roles", ""]
+        markdown = ["### Roles", ""]
         content = self.get_content()
 
         if content.subdirs:

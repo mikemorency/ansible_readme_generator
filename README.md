@@ -66,12 +66,11 @@ When a project's README is rendered, it occurs in 4 stages:
 
 #### Special Documentation Files
 
-If your project layout defines a `docs` attribute and that directory exists, ansidocs will look in that directory for certain files and <br>
-include them in the README generation. Some supported documents include:
+If your project layout defines a `docs` attribute and that directory exists, ansidocs will look in that directory for certain files and include them in the README generation. <br>
+Some supported documents include:
 
-<b>usage.md</b> - This file will be injected at the top of the `Usage` section in your README.md. The file should be pure markdown, there <br>
-will be no templating or substitution done on this file.
+<b>usage.md</b> - This file will be injected at the top of the `Usage` section in your README.md. The file should be pure markdown, there will be no templating or substitution done on this file.
 
-<b>defaults.yml</b> - This file should contain descriptions for defaults defined in your project, if any. This file is YAML and should <br>
-match the keys in your `defaults/main.yml` or corresponding defaults file. Values should be strings that are used as descriptions when <br>
-compiling the defaults markdown table
+<b>description.md</b> - This file will be injected at the top of the `Description` section in your README.md. The file should be pure markdown, there will be no templating or substitution done on this file.
+
+<b>defaults.yml</b> - This file should contain descriptions for defaults defined in your project, if any. This file is YAML and should match the keys in your `defaults/main.yml` or corresponding defaults file. Values should be strings that are used as descriptions when compiling the defaults markdown table

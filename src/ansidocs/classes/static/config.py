@@ -2,7 +2,7 @@ import os
 import yaml
 import logging
 
-from ansidocs.src.classes.layout import Layout
+from ansidocs.classes.layout import Layout
 
 
 logger = logging.getLogger(__name__)

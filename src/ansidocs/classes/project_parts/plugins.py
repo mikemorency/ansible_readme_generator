@@ -1,11 +1,11 @@
 from os import path
 from os import listdir
 from dataclasses import dataclass
+import errno
 
-from ansidocs.src.classes.abstract_project_part import AbstractProjectPart
-from ansidocs.src.classes.abstract_project_part import AbstractDirContent
-
-from ansidocs.src.classes.layout import Layout
+from ansidocs.classes.abstract_project_part import AbstractProjectPart
+from ansidocs.classes.abstract_project_part import AbstractDirContent
+from ansidocs.classes.layout import Layout
 
 
 @dataclass
@@ -20,7 +20,11 @@ class Plugins(AbstractProjectPart):
         super().__init__(layout=layout, project_root=project_root)
         self.root_dir = path.abspath(path.join(self.project_root, layout.part_paths['plugins']))
         if not path.exists(self.root_dir):
-            raise FileNotFoundError(f"Unable to find plugins project part directory {self.root_dir}")
+            raise FileNotFoundError(
+                errno.ENOENT,
+                f"Unable to find defaults project part directory {self.root_dir}",
+                self.root_dir)
+
 
     def get_content(self, search_path: str = None):
         plugins = []
@@ -40,14 +44,14 @@ class Plugins(AbstractProjectPart):
 
     def to_markdown(self):
         relative_path = self.layout.part_paths['plugins']
-        markdown =  [ "### Plugins", ""]
+        markdown = ["### Plugins", ""]
         content = self.get_content()
 
         for subdir_name, subdir_content in content.subdirs.items():
             markdown += self.__subdir_to_markdown(subdir_name, subdir_content)
 
         if content.plugins:
-            markdown += [f"#### Other Plugins", ""]
+            markdown += ["#### Other Plugins", ""]
             for plugin in content.plugins:
                 markdown += [f"- [{plugin}]({path.join(relative_path, plugin)})"]
             markdown += [""]
@@ -58,7 +62,6 @@ class Plugins(AbstractProjectPart):
             markdown.insert(2, "The following plugins are available to use from this project:")
             markdown.insert(3, "")
         return markdown
-
 
     def __subdir_to_markdown(self, subdir_name: str, subdir: PluginDirContent):
         markdown = [f"#### {str(subdir_name).capitalize()}", ""]

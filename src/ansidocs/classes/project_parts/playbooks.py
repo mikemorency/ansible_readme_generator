@@ -2,12 +2,11 @@ from os import path
 from os import listdir
 import logging
 from dataclasses import dataclass
-from ansidocs.src.classes import project
+import errno
 
-
-from ansidocs.src.classes.abstract_project_part import AbstractProjectPart
-from ansidocs.src.classes.abstract_project_part import AbstractDirContent
-from ansidocs.src.classes.layout import Layout
+from ansidocs.classes.abstract_project_part import AbstractProjectPart
+from ansidocs.classes.abstract_project_part import AbstractDirContent
+from ansidocs.classes.layout import Layout
 
 
 logger = logging.getLogger(__name__)
@@ -25,7 +24,11 @@ class Playbooks(AbstractProjectPart):
         super().__init__(layout=layout, project_root=project_root)
         self.root_dir = path.abspath(path.join(self.project_root, layout.part_paths['playbooks']))
         if not path.exists(self.root_dir):
-            raise FileNotFoundError(f"Unable to find playbooks project part directory {self.root_dir}")
+            raise FileNotFoundError(
+                errno.ENOENT,
+                f"Unable to find defaults project part directory {self.root_dir}",
+                self.root_dir)
+
 
     def get_content(self, search_path: str = None):
         playbooks = []
@@ -49,14 +52,14 @@ class Playbooks(AbstractProjectPart):
 
     def to_markdown(self):
         relative_path = self.layout.part_paths['playbooks']
-        markdown =  [ "### Playbooks", ""]
+        markdown = ["### Playbooks", ""]
         content = self.get_content()
 
         for subdir_name, subdir_content in content.subdirs.items():
             markdown += self.__subdir_to_markdown(subdir_name, subdir_content)
 
         if content.playbooks:
-            markdown += [f"#### Other Plays", ""]
+            markdown += ["#### Other Plays", ""]
             for playbook in content.playbooks:
                 markdown += [f"- [{playbook}]({path.join(relative_path, playbook)})"]
             markdown += [""]

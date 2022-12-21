@@ -1,8 +1,9 @@
 import logging
 from os import path
 import yaml
+import errno
 
-from ansidocs.src.classes.layout import MetaLayout
+from ansidocs.classes.layout import MetaLayout
 
 
 logger = logging.getLogger(__name__)
@@ -15,7 +16,11 @@ class Meta:
         self.layout = layout
         meta_abs = path.abspath(path.join(project_root, layout.file))
         if not path.exists(meta_abs):
-            raise FileNotFoundError(f"Unable to find meta file {meta_abs}")
+            raise FileNotFoundError(
+                errno.ENOENT,
+                f"Unable to find meta file {meta_abs}",
+                meta_abs)
+
 
         with open(meta_abs, "r") as f:
             meta_data = yaml.safe_load(f)

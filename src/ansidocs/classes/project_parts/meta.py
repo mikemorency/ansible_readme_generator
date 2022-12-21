@@ -14,6 +14,7 @@ class Meta:
         super().__init__()
         self.description = ""
         self.layout = layout
+        self.name = path.basename(project_root)
         meta_abs = path.abspath(path.join(project_root, layout.file))
         if not path.exists(meta_abs):
             raise FileNotFoundError(
@@ -34,6 +35,7 @@ class Meta:
             self.name = self.__dict__[layout.name_attr]
         except KeyError:
             pass
+
 
         if namespace:
             self.namespace = namespace

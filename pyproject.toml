@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ansidocs"
-version = "1.0.5"
+version = "1.0.7"
 description = "Generate and collate documentation for Ansible projects"
 readme = "README.md"
 authors = [{ name = "Mike Morency", email = "mikemorency93@gmail.com" }]

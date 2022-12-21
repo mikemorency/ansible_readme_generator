@@ -46,7 +46,7 @@ class Project():
             except FileNotFoundError as e:
                 logger.warning(f"Could not find project part {k} at {e.filename}")
 
-        return set(results)
+        return results
 
     @property
     def description(self):

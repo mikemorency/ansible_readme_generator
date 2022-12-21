@@ -67,7 +67,8 @@ class Plugins(AbstractProjectPart):
         markdown = [f"#### {str(subdir_name).capitalize()}", ""]
         if subdir.plugins:
             for plugin in subdir.plugins:
-                markdown += [f"- [{plugin}]({path.join(subdir_name, plugin)})", ""]
+                markdown += [f"- [{plugin}]({path.join(subdir_name, plugin)})"]
+            markdown += [""]
         for child_name, child_subdir in subdir.subdirs.items():
             markdown += self.__subdir_to_markdown(f"{subdir_name}/{child_name}", child_subdir)
 
